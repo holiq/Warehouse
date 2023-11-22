@@ -2,24 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Models\Category;
+use App\Filament\Resources\ProductResource\Pages;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class CategoryResource extends Resource
+class ProductResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('code')
+                    ->required()
+                    ->readOnly()
+                    ->default(function (Product $product) {
+                        $latest = $product->query()->get('id')->count();
+
+                        return 'BRG'.str_pad($latest + 1, 6, '0', STR_PAD_LEFT);
+                    }),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -27,6 +35,9 @@ class CategoryResource extends Resource
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->required(),
             ]);
     }
 
@@ -34,8 +45,13 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('code')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -70,10 +86,10 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'view' => Pages\ViewCategory::route('/{record}'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ListProducts::route('/'),
+            'create' => Pages\CreateProduct::route('/create'),
+            'view' => Pages\ViewProduct::route('/{record}'),
+            'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }
