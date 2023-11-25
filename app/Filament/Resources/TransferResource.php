@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Actions\Transfer\DeleteTransferAction;
 use App\Filament\Resources\TransferResource\Pages;
 use App\Models\Transfer;
 use Filament\Forms;
@@ -9,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 
 class TransferResource extends Resource
 {
@@ -73,7 +75,10 @@ class TransferResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->after(function (Collection $collection) {
+                            DeleteTransferAction::resolve()->execute($collection);
+                        }),
                 ]),
             ]);
     }
