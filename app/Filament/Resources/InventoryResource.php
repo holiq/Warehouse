@@ -30,7 +30,8 @@ class InventoryResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('stock')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->default(0),
             ]);
     }
 
