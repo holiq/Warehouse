@@ -12,10 +12,18 @@ class Transaction extends Model
 
     protected $fillable = [
         'transaction_number',
-        'transaction_type',
         'inventory_id',
         'user_id',
         'quantity',
+        'purchased_on',
+        'is_sold',
+        'sold_on',
+    ];
+
+    protected $casts = [
+        'purchased_on' => 'datetime',
+        'is_sold' => 'boolean',
+        'sold_on' => 'datetime',
     ];
 
     public function inventory(): BelongsTo

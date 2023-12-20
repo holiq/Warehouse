@@ -29,13 +29,6 @@ class TransactionResource extends Resource
 
                         return 'TRX'.str_pad($latest + 1, 6, '0', STR_PAD_LEFT);
                     }),
-                Forms\Components\Select::make('transaction_type')
-                    ->options([
-                        'buy' => 'Buy',
-                        'sell' => 'Sell',
-                    ])
-                    ->required(),
-
                 Forms\Components\Select::make('inventory_id')
                     ->options(function (Inventory $inventory) {
                         $inventories = $inventory->with(['product', 'warehouse'])->get();
@@ -54,6 +47,8 @@ class TransactionResource extends Resource
                     ->required()
                     ->default(0)
                     ->numeric(),
+                Forms\Components\DatePicker::make('purchased_on')
+                    ->required(),
             ]);
     }
 
@@ -61,18 +56,27 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('inventory.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('transaction_number')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('transaction_type')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('inventory.warehouse.name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('inventory.product.name')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
                     ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('purchased_on')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_sold')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('sold_on')
+                    ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
