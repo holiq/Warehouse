@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Actions\ExitBulkAction;
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Models\Inventory;
 use App\Models\Transaction;
@@ -98,6 +99,7 @@ class TransactionResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    ExitBulkAction::make(),
                 ]),
             ]);
     }
