@@ -11,9 +11,9 @@ readonly class TransactionData extends DataTransferObject
         public int|string $inventoryId,
         public int|string $quantity,
         public int $userId,
-        public string $purchasedOn,
-        public ?bool $isSold = null,
-        public ?string $soldOn = null,
+        public string $entryDate,
+        public bool $isOut = false,
+        public ?string $exitDate = null,
     ) {
     }
 }

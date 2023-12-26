@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('inventory_id')->constrained('inventories');
             $table->foreignId('user_id')->constrained('users');
             $table->float('quantity');
-            $table->dateTime('purchased_on');
-            $table->boolean('is_sold')->default(false);
-            $table->dateTime('sold_on')->nullable();
+            $table->date('entry_date');
+            $table->boolean('is_out')->default(false);
+            $table->date('exit_date')->nullable();
             $table->timestamps();
         });
     }

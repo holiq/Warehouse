@@ -47,7 +47,8 @@ class TransactionResource extends Resource
                     ->required()
                     ->default(0)
                     ->numeric(),
-                Forms\Components\DatePicker::make('purchased_on')
+                Forms\Components\DatePicker::make('entry_date')
+                    ->default(now())
                     ->required(),
             ]);
     }
@@ -70,12 +71,12 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('quantity')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('purchased_on')
+                Tables\Columns\TextColumn::make('entry_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_sold')
+                Tables\Columns\IconColumn::make('is_out')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('sold_on')
+                Tables\Columns\TextColumn::make('exit_date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

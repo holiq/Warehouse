@@ -15,15 +15,15 @@ class Transaction extends Model
         'inventory_id',
         'user_id',
         'quantity',
-        'purchased_on',
-        'is_sold',
-        'sold_on',
+        'entry_date',
+        'is_out',
+        'exit_date',
     ];
 
     protected $casts = [
-        'purchased_on' => 'datetime',
-        'is_sold' => 'boolean',
-        'sold_on' => 'datetime',
+        'entry_date' => 'date',
+        'is_out' => 'boolean',
+        'exit_date' => 'date',
     ];
 
     public function inventory(): BelongsTo
