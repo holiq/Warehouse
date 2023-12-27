@@ -8,7 +8,7 @@ use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class ExitBulkAction extends BulkAction
+class ExitTransactionBulkAction extends BulkAction
 {
     use CanCustomizeProcess;
 

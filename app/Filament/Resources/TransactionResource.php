@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Actions\ExitBulkAction;
+use App\Filament\Actions\DeleteTransactionBulkAction;
+use App\Filament\Actions\ExitTransactionBulkAction;
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Models\Inventory;
 use App\Models\Transaction;
@@ -93,13 +94,13 @@ class TransactionResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    ExitBulkAction::make(),
+                    DeleteTransactionBulkAction::make(),
+                    ExitTransactionBulkAction::make(),
                 ]),
             ]);
     }
@@ -116,8 +117,8 @@ class TransactionResource extends Resource
         return [
             'index' => Pages\ListTransactions::route('/'),
             'create' => Pages\CreateTransaction::route('/create'),
-            'view' => Pages\ViewTransaction::route('/{record}'),
-            'edit' => Pages\EditTransaction::route('/{record}/edit'),
+            // 'view' => Pages\ViewTransaction::route('/{record}'),
+            // 'edit' => Pages\EditTransaction::route('/{record}/edit'),
         ];
     }
 }
