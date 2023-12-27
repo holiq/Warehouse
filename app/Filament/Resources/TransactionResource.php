@@ -27,9 +27,10 @@ class TransactionResource extends Resource
                     ->required()
                     ->readOnly()
                     ->default(function (Transaction $transaction) {
-                        $latest = $transaction->query()->get('id')->count();
+                        $latest = $transaction->query()->latest()->first();
+                        $lastId = is_null($latest) ? 0 : $latest->id;
 
-                        return 'TRX'.str_pad($latest + 1, 6, '0', STR_PAD_LEFT);
+                        return 'TRX'.str_pad($lastId + 1, 6, '0', STR_PAD_LEFT);
                     }),
                 Forms\Components\Select::make('inventory_id')
                     ->options(function (Inventory $inventory) {

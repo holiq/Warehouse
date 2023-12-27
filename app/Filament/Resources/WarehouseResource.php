@@ -23,9 +23,10 @@ class WarehouseResource extends Resource
                 Forms\Components\TextInput::make('code')
                     ->required()
                     ->default(function (Warehouse $warehouse) {
-                        $latest = $warehouse->query()->get('id')->count();
+                        $latest = $warehouse->query()->latest()->first();
+                        $lastId = is_null($latest) ? 0 : $latest->id;
 
-                        return 'GDG'.str_pad($latest + 1, 3, '0', STR_PAD_LEFT);
+                        return 'GDG'.str_pad($lastId + 1, 3, '0', STR_PAD_LEFT);
                     }),
                 Forms\Components\TextInput::make('name')
                     ->required()

@@ -40,6 +40,7 @@ class InventoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('warehouse.name')
                     ->searchable(),
