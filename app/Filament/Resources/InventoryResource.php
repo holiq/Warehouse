@@ -30,7 +30,8 @@ class InventoryResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('stock')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->default(0),
             ]);
     }
 
@@ -39,6 +40,7 @@ class InventoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('warehouse.name')
                     ->searchable(),

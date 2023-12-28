@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Inventory;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class InventoryPolicy
+class TransactionPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class InventoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_inventory');
+        return $user->can('view_any_transaction');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Inventory $inventory): bool
+    public function view(User $user, Transaction $transaction): bool
     {
-        return $user->can('view_inventory');
+        return $user->can('view_transaction');
     }
 
     /**
@@ -31,23 +31,23 @@ class InventoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_inventory');
+        return $user->can('create_transaction');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Inventory $inventory): bool
+    public function update(User $user, Transaction $transaction): bool
     {
-        return $user->can('update_inventory');
+        return $user->can('update_transaction');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Inventory $inventory): bool
+    public function delete(User $user, Transaction $transaction): bool
     {
-        return $user->can('delete_inventory');
+        return $user->can('delete_transaction');
     }
 
     /**
@@ -55,13 +55,13 @@ class InventoryPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_inventory');
+        return $user->can('delete_any_transaction');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Inventory $inventory): bool
+    public function forceDelete(User $user, Transaction $transaction): bool
     {
         return $user->can('{{ ForceDelete }}');
     }
@@ -77,7 +77,7 @@ class InventoryPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Inventory $inventory): bool
+    public function restore(User $user, Transaction $transaction): bool
     {
         return $user->can('{{ Restore }}');
     }
@@ -93,7 +93,7 @@ class InventoryPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Inventory $inventory): bool
+    public function replicate(User $user, Transaction $transaction): bool
     {
         return $user->can('{{ Replicate }}');
     }

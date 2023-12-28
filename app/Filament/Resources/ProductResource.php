@@ -24,9 +24,10 @@ class ProductResource extends Resource
                     ->required()
                     ->readOnly()
                     ->default(function (Product $product) {
-                        $latest = $product->query()->get('id')->count();
+                        $latest = $product->query()->latest()->first();
+                        $lastId = is_null($latest) ? 0 : $latest->id;
 
-                        return 'BRG'.str_pad($latest + 1, 6, '0', STR_PAD_LEFT);
+                        return 'BRG'.str_pad($lastId + 1, 6, '0', STR_PAD_LEFT);
                     }),
                 Forms\Components\TextInput::make('name')
                     ->required()
